@@ -9,7 +9,7 @@ runs:
       with:
         command: |
           set -o pipefail
-          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors --connect-timeout 30 https://raw.githubusercontent.com/vc-teahouse/Baseband-guard/main/setup.sh | bash
+          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors --connect-timeout 30 https://raw.githubusercontent.com/rich-beluga/Baseband-guard/main/setup.sh | bash
         attempts: 5
         delay: 5
         workdir: ${{ github.workspace }}/kernel
