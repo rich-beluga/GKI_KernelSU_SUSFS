@@ -4,10 +4,6 @@ permissions:
   contents: write
   actions: write
 
-concurrency:
-  group: build-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: false
-
 on:
   workflow_dispatch:
     inputs:
@@ -16,7 +12,6 @@ on:
         type: choice
         options:
           - CI
-          - Nightly
           - Pre-Release
           - Release
         default: CI
@@ -127,8 +122,8 @@ on:
         description: "Render release notes preview only (skip all builds + release)"
         type: boolean
         default: false
-  schedule:
-    - cron: "0 5 * * 1" # Monday 12am EST (5am UTC)
+  # schedule:  # nightly automatic builds disabled - user opt-in via workflow_dispatch only
+  #   - cron: "0 5 * * 1" # Monday 12am EST (5am UTC)
 
 jobs:
   # Fork gate (#328): scheduled (cron) runs only proceed when the repo sets
@@ -1440,9 +1435,6 @@ jobs:
           echo "announced ${sent} message(s)"
 
   update-verified-pins:
-    concurrency:
-      group: update-verified-pins-${{ github.repository }}
-      cancel-in-progress: false
     if: "github.event_name == 'workflow_dispatch' && !inputs.test_release_notes && inputs.commit_mode == 'update'"
     runs-on: ubuntu-latest
     permissions:
