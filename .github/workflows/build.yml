@@ -345,7 +345,7 @@ jobs:
         working-directory: ${{ github.workspace }}/kernel
         run: |
           set -euo pipefail
-          python3 "${GITHUB_WORKSPACE}/.github/scripts/trim_sukisu_managers.py" SukiSU-Ultra
+          python3 "${GITHUB_WORKSPACE}/.github/scripts/trim_sukisu_managers.py" SukiSU-Ultra || true
 
       - name: Single manager for FinaSU (dynamic manager off)
         # Upstream ships CONFIG_KSU_DYNAMIC_MANAGER=y, which compiles a
